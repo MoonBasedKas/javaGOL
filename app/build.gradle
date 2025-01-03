@@ -40,5 +40,6 @@ javafx {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.HelloFX'
+    // mainClass = 'org.example.HelloFX'
+    mainClass = 'moon.gfx.gui'
 }
