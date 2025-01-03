@@ -1,3 +1,8 @@
+/**
+ * This class handles the actual board and its logic.
+ * 
+ * TODO: diagonally flipping board glitch.
+ */
 package moon.gol;
 
 import java.util.ArrayList;

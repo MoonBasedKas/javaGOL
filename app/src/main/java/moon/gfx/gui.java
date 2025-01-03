@@ -50,19 +50,26 @@ public class gui extends Application{
      */
     private Parent createContent(){
 
-        // board = board.generateNextGeneration();
         var canvas = new Canvas(1280, 720);
         g = canvas.getGraphicsContext2D();
         AnimationTimer timer = new AnimationTimer(){
             @Override
             public void handle(long now){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 onUpdate();
             }
         };
-
         timer.start();
         var pane = new Pane(canvas);
         pane.setPrefSize(1280, 720);
+
+
+
 
         return pane;
     }
@@ -71,12 +78,14 @@ public class gui extends Application{
      * Updates the canvas to reflect the new board.
      */
     private void onUpdate(){
+        
         parts = translateBoardGFX();
         g.clearRect(0, 0, 1280, 720); // Clears the frame
         parts.forEach(p -> {
             g.setFill(Color.BLUE);
             g.fillRect(p.x * pixelSize, p.y * pixelSize, pixelSize, pixelSize);
         });
+        board = board.generateNextGeneration(); // Update the board
     }
 
     /**
