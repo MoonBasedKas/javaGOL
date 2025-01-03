@@ -1,3 +1,9 @@
+/**
+ * Handles displaying the information of the board to the user.
+ * 
+ * TODO: Allow for better pixel scaling.
+ */
+
 package moon.gfx;
 
 import java.util.ArrayList;
@@ -19,13 +25,18 @@ public class gui extends Application{
     
     private GraphicsContext g;
     private Board board;
+    private Integer width, height;
     private double mouseX;
     private double mouseY;
+    private Integer pixelSize = 4;
 
     private List<BoardPoint> parts = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws Exception{
+        width = 1280;
+        height = 720;
+        this.initBoard();
         var scene = new Scene(createContent());
 
         stage.setScene(scene);
@@ -39,7 +50,7 @@ public class gui extends Application{
      */
     private Parent createContent(){
 
-        board = board.generateNextGeneration();
+        // board = board.generateNextGeneration();
         var canvas = new Canvas(1280, 720);
         g = canvas.getGraphicsContext2D();
         AnimationTimer timer = new AnimationTimer(){
@@ -56,22 +67,43 @@ public class gui extends Application{
         return pane;
     }
 
-    // Draws the canvas on each update
+    /**
+     * Updates the canvas to reflect the new board.
+     */
     private void onUpdate(){
+        parts = translateBoardGFX();
         g.clearRect(0, 0, 1280, 720); // Clears the frame
         parts.forEach(p -> {
             g.setFill(Color.BLUE);
-            g.fillRect(p.x, p.y, 100, 100);
+            g.fillRect(p.x * pixelSize, p.y * pixelSize, pixelSize, pixelSize);
         });
     }
 
     /**
      * This will translate a given board into a displayable form.
      */
-    private void translateBoardGFX(){
-        
+    private ArrayList<BoardPoint> translateBoardGFX(){
+        ArrayList<BoardPoint> cords = new ArrayList<BoardPoint>();
+
+        for(int y = 0; y < height/pixelSize; y++){
+            for(int x = 0; x < width/pixelSize; x++){
+                if(board.board.get(y).get(x)) cords.add(new BoardPoint(x, y));
+            }
+        }
+
+        return cords;
     }
 
+
+    private void initBoard(){
+        ArrayList<BoardPoint> cords = new ArrayList<BoardPoint>();
+        // cords.add(new BoardPoint(1, 1));
+        cords.add(new BoardPoint(23, 64));
+        cords.add(new BoardPoint(24, 64));
+        cords.add(new BoardPoint(23, 63));
+        board = new Board(width/pixelSize, height/pixelSize, cords);
+        
+    }
 
 
     public static void main(String[] args){
