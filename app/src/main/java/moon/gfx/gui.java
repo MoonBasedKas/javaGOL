@@ -18,6 +18,7 @@ import moon.gol.BoardPoint;
 public class gui extends Application{
     
     private GraphicsContext g;
+    private Board board;
     private double mouseX;
     private double mouseY;
 
@@ -32,17 +33,13 @@ public class gui extends Application{
     }
 
     /**
-     * Creates the content we are going to view
+     * Generates the content we are going to view. Needs to update the board
+     * and translate that into pixels.
      * @return
      */
     private Parent createContent(){
 
-        ArrayList<BoardPoint> pixels = new ArrayList<BoardPoint>();
-
-        pixels.add(new BoardPoint(95, 95));
-
-        Board board = new Board(1280, 720, pixels);
-
+        board = board.generateNextGeneration();
         var canvas = new Canvas(1280, 720);
         g = canvas.getGraphicsContext2D();
         AnimationTimer timer = new AnimationTimer(){
@@ -64,13 +61,21 @@ public class gui extends Application{
         g.clearRect(0, 0, 1280, 720); // Clears the frame
         parts.forEach(p -> {
             g.setFill(Color.BLUE);
-            g.fillOval(p.x, p.y, 100, 100);
+            g.fillRect(p.x, p.y, 100, 100);
         });
+    }
+
+    /**
+     * This will translate a given board into a displayable form.
+     */
+    private void translateBoardGFX(){
+        
     }
 
 
 
     public static void main(String[] args){
+        // TODO: put board initalization here.
         launch(args);
     }
 }

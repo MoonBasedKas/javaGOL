@@ -35,6 +35,8 @@ public class Board {
         }
     }
 
+
+
     /**
      * Returns this specific board may get rid of.
      * @return
@@ -43,5 +45,48 @@ public class Board {
         return this;
     }
 
+
+    private Integer countNeighbors(int x, int y){
+
+        int count = 0;
+
+        for(int i = -1; i < 2; i++){
+            for(int j = -1; j < 2; j++){
+                // Is current pixel?
+                if(j == 0 && i == 0) break;
+
+                if(j + x < 0 || i + y < 0) break; // negative value
+
+                if(j + x >= width || i + y >= height) break; // negative value
+
+                if(board.get(y + i).get(x + j)) count += 1; // Is the pixel alive
+            }
+        }
+
+        return count;
+    }
+
+
+    private Boolean verify(int x, int y){
+        int count = countNeighbors(x, y);
+
+        if (count == 2 || count == 3) return true;
+
+        return false;
+    }
     
+
+    public Board generateNextGeneration(){
+        ArrayList<BoardPoint> cords = new ArrayList<BoardPoint>();
+
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+                if(verify(x, y)){
+                    cords.add(new BoardPoint(x, y));
+                }
+            }
+        }
+
+        return new Board(width, height, cords);
+    }
 }
