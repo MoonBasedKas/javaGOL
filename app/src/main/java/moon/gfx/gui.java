@@ -1,6 +1,5 @@
 package moon.gfx;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import moon.gol.Board;
+import moon.gol.BoardPoint;
 
 public class gui extends Application{
     
@@ -20,17 +21,11 @@ public class gui extends Application{
     private double mouseX;
     private double mouseY;
 
-    private List<Particle> parts = new ArrayList<>();
+    private List<BoardPoint> parts = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws Exception{
         var scene = new Scene(createContent());
-
-        scene.setOnMouseMoved(value -> {
-            mouseX = value.getX();
-            mouseY = value.getY();
-        });
-        // stage.setScene(new Scene(createContent()));
 
         stage.setScene(scene);
         stage.show();
@@ -41,11 +36,12 @@ public class gui extends Application{
      * @return
      */
     private Parent createContent(){
-        for(int i = 0; i < 72; i ++){
-            for(int j = 0; j < 128; j++){
-                parts.add(new Particle(j * 10, i * 10, Color.BLUE));
-            }
-        }
+
+        ArrayList<BoardPoint> pixels = new ArrayList<BoardPoint>();
+
+        pixels.add(new BoardPoint(95, 95));
+
+        Board board = new Board(1280, 720, pixels);
 
         var canvas = new Canvas(1280, 720);
         g = canvas.getGraphicsContext2D();
@@ -67,30 +63,12 @@ public class gui extends Application{
     private void onUpdate(){
         g.clearRect(0, 0, 1280, 720); // Clears the frame
         parts.forEach(p -> {
-            g.setFill(p.color);
-            g.fillOval(p.x - 1, p.y - 1, 2, 2);
+            g.setFill(Color.BLUE);
+            g.fillOval(p.x, p.y, 100, 100);
         });
     }
 
-    /**
-     * local class
-     */
-    private static class Particle{
-        double x;
-        double y;
-        Color color;
 
-        
-        Particle(double x, double y, Color color){
-            this.x = x;
-            this.y = y;
-            this.color = color;
-        }
-
-        void update(Point2D cursor){
-            var distance = cursor.distance(x,y);               
-        }
-    }
 
     public static void main(String[] args){
         launch(args);

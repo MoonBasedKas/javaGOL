@@ -2,7 +2,7 @@ package moon.gol;
 
 import java.util.ArrayList;
 
-public class board {
+public class Board {
 
     //Keeps track of if a pixel exists by if its true. (true == alive)
     // (y,x) coordinates v, >
@@ -17,7 +17,7 @@ public class board {
      * @param height
      * @param pixels
      */
-    public board(int width, int height, ArrayList<pixel> pixels){
+    public Board(int width, int height, ArrayList<BoardPoint> pixels){
         this.width = width;
         this.height = height;
         ArrayList<Boolean> temp;
@@ -30,7 +30,7 @@ public class board {
             this.board.add(temp);
         }
 
-        for(pixel p: pixels){
+        for(BoardPoint p: pixels){
             board.get(p.x).set(p.y, true);
         }
     }
@@ -39,7 +39,7 @@ public class board {
      * Returns this specific board may get rid of.
      * @return
      */
-    public board getBoard(){
+    public Board getBoard(){
         return this;
     }
 
