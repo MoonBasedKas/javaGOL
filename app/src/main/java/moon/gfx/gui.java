@@ -108,8 +108,12 @@ public class gui extends Application{
         ArrayList<BoardPoint> cords = new ArrayList<BoardPoint>();
         // cords.add(new BoardPoint(1, 1));
         cords.add(new BoardPoint(23, 64));
-        cords.add(new BoardPoint(24, 64));
-        cords.add(new BoardPoint(23, 63));
+        cords.add(new BoardPoint(24, 65));
+        cords.add(new BoardPoint(23, 66));
+
+        cords.add(new BoardPoint(24, 66));
+
+        cords.add(new BoardPoint(25, 67));
         board = new Board(width/pixelSize, height/pixelSize, cords);
         
     }
