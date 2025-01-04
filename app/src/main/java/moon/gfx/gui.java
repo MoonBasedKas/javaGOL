@@ -81,6 +81,8 @@ public class gui extends Application{
         
         parts = translateBoardGFX();
         g.clearRect(0, 0, 1280, 720); // Clears the frame
+        g.setFill(Color.CORAL);
+        g.fillRect(0, 0, width, height);
         parts.forEach(p -> {
             g.setFill(Color.BLUE);
             g.fillRect(p.x * pixelSize, p.y * pixelSize, pixelSize, pixelSize);
