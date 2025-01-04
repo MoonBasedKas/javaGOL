@@ -20,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.time.Instant;
 import moon.gol.Board;
 import moon.gol.BoardPoint;
 
@@ -32,6 +33,8 @@ public class gui extends Application{
     private double mouseY;
     private Integer pixelSize = 4;
     private boolean run = true;
+    private long now = 0;
+    private long lastNow = now;
 
     private List<BoardPoint> parts = new ArrayList<>();
 
@@ -101,7 +104,7 @@ public class gui extends Application{
      * Updates the canvas to reflect the new board.
      */
     private void onUpdate(){
-        
+        now = System.currentTimeMillis();
         parts = translateBoardGFX();
         g.clearRect(0, 0, 1280, 720); // Clears the frame
         g.setFill(Color.CORAL);
@@ -110,8 +113,10 @@ public class gui extends Application{
             g.setFill(Color.BLUE);
             g.fillRect(p.x * pixelSize, p.y * pixelSize, pixelSize, pixelSize);
         });
-        if (run)
-        board = board.generateNextGeneration(); // Update the board
+        if (run && now - lastNow > 100){
+            lastNow = now;
+            board = board.generateNextGeneration(); // Update the board
+        }
     }
 
     /**
@@ -132,7 +137,6 @@ public class gui extends Application{
 
     private void initBoard(){
         ArrayList<BoardPoint> cords = new ArrayList<BoardPoint>();
-        // cords.add(new BoardPoint(1, 1));
         cords.add(new BoardPoint(23, 64));
         cords.add(new BoardPoint(24, 65));
         cords.add(new BoardPoint(23, 66));
@@ -146,7 +150,6 @@ public class gui extends Application{
 
 
     public static void main(String[] args){
-        // TODO: put board initalization here.
         launch(args);
     }
 }
