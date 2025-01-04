@@ -77,6 +77,12 @@ public class Board {
         return count == 3;
 
     }
+
+    
+    public void addPixel(int x, int y){
+        if ((x > -1 && y > -1) && (x < width && y < height))
+        board.get(y).set(x, true);
+    }
     
 
     public Board generateNextGeneration(){
