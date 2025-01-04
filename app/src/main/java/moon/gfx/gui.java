@@ -56,7 +56,7 @@ public class gui extends Application{
             @Override
             public void handle(long now){
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -113,7 +113,7 @@ public class gui extends Application{
 
         cords.add(new BoardPoint(24, 66));
 
-        cords.add(new BoardPoint(25, 67));
+        cords.add(new BoardPoint(25, 65));
         board = new Board(width/pixelSize, height/pixelSize, cords);
         
     }

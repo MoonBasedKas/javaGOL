@@ -36,19 +36,12 @@ public class Board {
         }
 
         for(BoardPoint p: pixels){
-            board.get(p.x).set(p.y, true);
+            board.get(p.y).set(p.x, true);
         }
     }
 
 
 
-    /**
-     * Returns this specific board may get rid of.
-     * @return
-     */
-    public Board getBoard(){
-        return this;
-    }
 
 
     private Integer countNeighbors(int x, int y){
@@ -57,14 +50,16 @@ public class Board {
 
         for(int i = -1; i < 2; i++){
             for(int j = -1; j < 2; j++){
+                // System.out.print(j);
+                // System.out.println(i);
                 // Is current pixel?
-                if(j == 0 && i == 0) break;
+                if(j == 0 && i == 0) {}
 
-                if(j + x < 0 || i + y < 0) break; // negative value
+                else if(j + x < 0 || i + y < 0) {} // negative value
 
-                if(j + x >= width || i + y >= height) break; // negative value
+                else if(j + x >= width || i + y >= height) {} // negative value
 
-                if(board.get(y + i).get(x + j)) count += 1; // Is the pixel alive
+                else if(board.get(y + i).get(x + j)) count += 1; // Is the pixel alive
             }
         }
 
@@ -75,9 +70,12 @@ public class Board {
     private Boolean verify(int x, int y){
         int count = countNeighbors(x, y);
 
-        if (count == 2 || count == 3) return true;
+        if (count == 2 && board.get(y).get(x)){
+            return true;
+        }
 
-        return false;
+        return count == 3;
+
     }
     
 
