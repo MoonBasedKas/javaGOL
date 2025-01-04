@@ -1,7 +1,6 @@
 /**
  * Handles displaying the information of the board to the user.
  * 
- * TODO: Allow for better pixel scaling.
  */
 
 package moon.gfx;
