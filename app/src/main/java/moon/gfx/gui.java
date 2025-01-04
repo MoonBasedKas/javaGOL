@@ -5,7 +5,6 @@
 
 package moon.gfx;
 
-import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.time.Instant;
 import moon.gol.Board;
 import moon.gol.BoardPoint;
 
